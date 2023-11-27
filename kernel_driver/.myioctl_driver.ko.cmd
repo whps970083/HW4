@@ -1,0 +1,1 @@
+cmd_/home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.ko := ld -r -m elf_x86_64 -z noexecstack --build-id=sha1  -T scripts/module.lds -o /home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.ko /home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.o /home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.mod.o;  true

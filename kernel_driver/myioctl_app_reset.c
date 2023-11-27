@@ -23,7 +23,7 @@ int main() {
 
     ioctl(fd, MYIOCTL_RESET, &counter_value);
 
-    printf("Resetted counter value: 0 \n");
+    printf("Resetted counter value: %d\n", counter_value);
 
     close(fd);
 

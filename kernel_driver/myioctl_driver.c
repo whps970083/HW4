@@ -47,15 +47,14 @@ static void __exit myioctl_exit(void) {
 static int myioctl_open(struct inode *inode, struct file *filp) {
     //when opened, load the count from a file
     struct file *fp;
-    unsigned char buf;
+    int buf;
 
     fp = filp_open("myioctl_count.txt", O_RDONLY, 0644);
     if (IS_ERR(fp)) {
         pr_err("Failed to open file\n");
         return -1;
     }
-    kernel_read(fp, &buf, sizeof(unsigned char), 0);
-    count = buf - '0';
+    kernel_read(fp, &buf, sizeof(int), 0);
     filp_close(fp, NULL);
     pr_info("myioctl device opened\n");
     return 0;
@@ -64,15 +63,14 @@ static int myioctl_open(struct inode *inode, struct file *filp) {
 static int myioctl_release(struct inode *inode, struct file *filp) {
     //when released, save the count to a file
     struct file *fp;
-    unsigned char buf;
+    int buf = count ;
 
     fp = filp_open("myioctl_count.txt", O_WRONLY | O_CREAT, 0644);
     if (IS_ERR(fp)) {
         pr_err("Failed to open file\n");
         return -1;
     }
-    buf = count + '0';
-    kernel_write(fp, &buf, sizeof(unsigned char), 0);
+    kernel_write(fp, &buf, sizeof(int), 0);
     filp_close(fp, NULL);
     pr_info("myioctl device closed\n");
     return 0;

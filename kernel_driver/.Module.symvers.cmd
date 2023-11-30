@@ -1,1 +1,0 @@
-cmd_/home/nachos/ioctl/HW4/kernel_driver/Module.symvers :=  scripts/mod/modpost -m -a     -o /home/nachos/ioctl/HW4/kernel_driver/Module.symvers -T /home/nachos/ioctl/HW4/kernel_driver/modules.order -i Module.symvers -e 

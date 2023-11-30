@@ -55,6 +55,7 @@ static int myioctl_open(struct inode *inode, struct file *filp) {
         return -1;
     }
     kernel_read(fp, &buf, sizeof(int), 0);
+    count = buf;
     filp_close(fp, NULL);
     pr_info("myioctl device opened\n");
     return 0;

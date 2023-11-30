@@ -1,1 +1,0 @@
-cmd_/home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.mod := printf '%s\n'   myioctl_driver.o | awk '!x[$$0]++ { print("/home/nachos/ioctl/HW4/kernel_driver/"$$0) }' > /home/nachos/ioctl/HW4/kernel_driver/myioctl_driver.mod

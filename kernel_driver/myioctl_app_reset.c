@@ -22,7 +22,7 @@ int main() {
     printf("Current counter value: %d\n", counter_value);
 
     ioctl(fd, MYIOCTL_RESET, &counter_value);
-
+    ioctl(fd, MYIOCTL_GET_COUNT, &counter_value);
     printf("Resetted counter value: %d\n", counter_value);
 
     close(fd);

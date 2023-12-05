@@ -45,21 +45,30 @@ static void __exit myioctl_exit(void) {
 }
 
 static int myioctl_open(struct inode *inode, struct file *filp) {
-    //when opened, load the count from a file
+    // when opened, load the count from a file
     struct file *fp;
     int buf;
 
-    fp = filp_open("myioctl_count.txt", O_RDONLY, 0644);
+    fp = filp_open("myioctl_count.txt", O_RDWR | O_CREAT, 0644);
     if (IS_ERR(fp)) {
         pr_err("Failed to open file\n");
         return -1;
     }
-    kernel_read(fp, &buf, sizeof(int), 0);
-    count = buf;
+
+    // If the file is newly created or empty, initialize count to 0
+    if (fp->f_inode->i_size == 0) {
+        buf = 0;
+        kernel_write(fp, &buf, sizeof(int), 0);
+    } else {
+        kernel_read(fp, &buf, sizeof(int), 0);
+        count = buf;
+    }
+
     filp_close(fp, NULL);
     pr_info("myioctl device opened\n");
     return 0;
 }
+
 
 static int myioctl_release(struct inode *inode, struct file *filp) {
     //when released, save the count to a file
